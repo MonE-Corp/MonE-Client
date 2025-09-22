@@ -11,7 +11,7 @@ interface ModalProps {
 
 }
 
-export function EditModal({ title, columns, data, onSuccess, incomeExpenseId }: ModalProps) {
+export function EditModal({ title, columns, data, onSuccess }: ModalProps) {
   const { token } = useAuth();
   const [formData, setFormData] = useState(data);
 
