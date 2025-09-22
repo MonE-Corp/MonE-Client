@@ -18,7 +18,7 @@ interface Income {
 }
 
 export default function Income() {
-  const API_BASE_URL = "http://localhost:5000";
+  const API_BASE_URL = "https://mone-awhhcwb7baccf5g0.canadacentral-01.azurewebsites.net";
   const { token, logout } = useAuth();
   const [income, setIncome] = useState<Income[]>([]);
   const [totalIncome, setTotalIncome] = useState<number>(0);

@@ -19,7 +19,7 @@ interface Expense {
 }
 
 export default function Expenses() {
-  const API_BASE_URL = "http://localhost:5000"; // Your backend URL
+  const API_BASE_URL = "https://mone-awhhcwb7baccf5g0.canadacentral-01.azurewebsites.net"; // Your backend URL
   const { token, logout } = useAuth();
   const [expenses, setExpenses] = useState<Expense[]>([]);
   const [totalExpenses, setTotalExpenses] = useState<number>(0);
