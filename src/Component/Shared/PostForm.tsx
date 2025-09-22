@@ -31,7 +31,7 @@ function PostForm({ title, columns,onSuccess }: PostFormProps) {
     }
 
     try {
-      const response = await fetch(`http://localhost:5000/valid/${title.toLowerCase()}`, {
+      const response = await fetch(`https://mone-awhhcwb7baccf5g0.canadacentral-01.azurewebsites.net/valid/${title.toLowerCase()}`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
