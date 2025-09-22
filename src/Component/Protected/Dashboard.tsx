@@ -6,6 +6,7 @@ import LogoLight from "../Shared/LogoLight";
 import "../../App.css";
 import IncomeExpenseBarChart from "../Shared/IncomeExpenseBarChart"; // Bar chart component import
 import * as d3 from "d3";
+import Footer from "../Shared/Footer";
 
 interface UserData {
   id: number;
@@ -179,6 +180,7 @@ export default function Dashboard() {
         {/* Render other routes through Outlet */}
         <Outlet />
       </main>
+      <Footer />
     </div>
   );
 }

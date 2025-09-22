@@ -1,4 +1,5 @@
 import "../../App.css"
+import Footer from "../Shared/Footer";
 import Navigation from "../Shared/Navigation";
 import SignInForm from "../form/SignInForm";
 
@@ -19,6 +20,7 @@ function HomePage() {
                     <SignInForm />
                 </div>
             </div>
+            <Footer />
         </div>
     )
 }
