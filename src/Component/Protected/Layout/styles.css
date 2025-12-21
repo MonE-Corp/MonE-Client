@@ -1,0 +1,90 @@
+@import url(../../../assets/Styles/globalStyles.css );
+
+
+.sidebar {
+  background-color: var(--darkGreen) !important;
+}
+
+.mobileNav {
+  background-color: var(--darkGreen) !important;
+}
+
+.logoBg{
+    background-color: var(--darkGreen);
+}
+/* Sidebar links */
+.nav-link {
+  color: white;
+  padding: 12px 20px;
+  font-size: 1rem;
+}
+
+.nav-link.active,
+.nav-link:hover {
+  background-color: var(--darkGreen);
+  color: var(--skin);
+}
+
+/* Main content */
+main {
+  background-color: #f8f9fa;
+  min-height: 100vh;
+}
+
+#logo a{
+    font-family: var(--workSans);
+    font-size: var(--logo-h3);
+    font-weight: 800;
+    -webkit-text-stroke: 5px var(--skin);
+    paint-order: stroke fill;
+    color: var(--darkGreen);
+}
+
+/* FILTER BUTTONS */
+.filter-bar .filter-btn {
+    background: none;
+    border: none;
+    padding: 6px 0;
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--lightGreen);
+    position: relative;
+    cursor: pointer;
+}
+
+/* Underline invisible by default */
+.filter-bar .filter-btn::after {
+    content: "";
+    position: absolute;
+    bottom: -3px;
+    left: 0;
+    width: 0%;
+    height: 3px;
+    background: var(--skin);
+    transition: width 0.3s ease-in-out;
+    border-radius: 20px;
+}
+
+/* ACTIVE button gets underline */
+.filter-bar .filter-btn.active::after {
+    width: 100%;
+}
+
+/* Hover indication */
+.filter-bar .filter-btn:hover {
+    color: var(--skin);
+}
+.filter-bar .filter-btn:hover::after {
+    width: 100%;
+}
+
+
+.componentLine {
+  border: none;
+  border-top: 2px solid var(--darkGreen) !important;
+  width: 100%;
+  margin: 0.75rem 0;
+}
+
+
+

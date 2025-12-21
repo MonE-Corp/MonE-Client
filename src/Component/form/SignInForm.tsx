@@ -22,7 +22,7 @@ const SignInForm: React.FC = () => {
   // Redirect to dashboard if already authenticated
   useEffect(() => {
     if (token) {
-      navigate("/dashboard");
+      navigate("/portal");
     }
   }, [token, navigate]);
 
