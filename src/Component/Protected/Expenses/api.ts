@@ -19,8 +19,13 @@ const toISODate = (value?: string) => {
 /* -------------------- API Calls -------------------- */
 
 export const fetchExpenses = async (token: string): Promise<Expense[]> => {
+
+  // fallback to localStorage if token is null
+  const authToken = token || localStorage.getItem("token");
+  if (!authToken) throw new Error("No token found");
+
   const res = await fetch(BASE, {
-    headers: { Authorization: `Bearer ${token}` },
+    headers: { Authorization: `Bearer ${authToken}` },
   });
 
   if (res.status === 401) throw new Error("UNAUTHORIZED");
@@ -38,10 +43,15 @@ export const addExpense = async (
   token: string,
   expense: CreateExpense
 ): Promise<Expense> => {
+
+   // fallback to localStorage if token is null
+  const authToken = token || localStorage.getItem("token");
+  if (!authToken) throw new Error("No token found");
+
   const res = await fetch(BASE, {
     method: "POST",
     headers: {
-      Authorization: `Bearer ${token}`,
+      Authorization: `Bearer ${authToken}`,
       "Content-Type": "application/json",
     },
     body: JSON.stringify({
@@ -62,10 +72,15 @@ export const updateExpense = async (
   id: number,
   data: Partial<Expense>
 ): Promise<Expense> => {
+
+   // fallback to localStorage if token is null
+  const authToken = token || localStorage.getItem("token");
+  if (!authToken) throw new Error("No token found");
+
   const res = await fetch(`${BASE}/${id}`, {
     method: "PUT",
     headers: {
-      Authorization: `Bearer ${token}`,
+      Authorization: `Bearer ${authToken}`,
       "Content-Type": "application/json",
     },
     body: JSON.stringify({
@@ -82,8 +97,11 @@ export const updateExpense = async (
 };
 
 export const deleteExpense = async (token: string, id: number) => {
+   // fallback to localStorage if token is null
+  const authToken = token || localStorage.getItem("token");
+  if (!authToken) throw new Error("No token found");
   await fetch(`${BASE}/${id}`, {
     method: "DELETE",
-    headers: { Authorization: `Bearer ${token}` },
+    headers: { Authorization: `Bearer ${authToken}` },
   });
 };

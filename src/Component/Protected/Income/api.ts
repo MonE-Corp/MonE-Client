@@ -10,8 +10,11 @@ const toDateOnly = (value?: string) => {
 };
 
 export const fetchIncome = async (token: string): Promise<Income[]> => {
+     // fallback to localStorage if token is null
+  const authToken = token || localStorage.getItem("token");
+  if (!authToken) throw new Error("No token found");
   const res = await fetch(BASE, {
-    headers: { Authorization: `Bearer ${token}` },
+    headers: { Authorization: `Bearer ${authToken}` },
   });
 
   const data: Income[] = await res.json();
@@ -26,10 +29,15 @@ export const addIncome = async (
   token: string,
   income: CreateIncome
 ): Promise<Income> => {
+
+     // fallback to localStorage if token is null
+  const authToken = token || localStorage.getItem("token");
+  if (!authToken) throw new Error("No token found");
+
   const res = await fetch(BASE, {
     method: "POST",
     headers: {
-      Authorization: `Bearer ${token}`,
+      Authorization: `Bearer ${authToken}`,
       "Content-Type": "application/json",
     },
     body: JSON.stringify(income), // already YYYY-MM-DD
@@ -44,10 +52,15 @@ export const updateIncome = async (
   id: number,
   data: Partial<Income>
 ): Promise<Income> => {
+
+     // fallback to localStorage if token is null
+  const authToken = token || localStorage.getItem("token");
+  if (!authToken) throw new Error("No token found");
+
   const res = await fetch(`${BASE}/${id}`, {
     method: "PUT",
     headers: {
-      Authorization: `Bearer ${token}`,
+      Authorization: `Bearer ${authToken}`,
       "Content-Type": "application/json",
     },
     body: JSON.stringify(data),
@@ -58,8 +71,11 @@ export const updateIncome = async (
 };
 
 export const deleteIncome = async (token: string, id: number) => {
+     // fallback to localStorage if token is null
+  const authToken = token || localStorage.getItem("token");
+  if (!authToken) throw new Error("No token found");
   await fetch(`${BASE}/${id}`, {
     method: "DELETE",
-    headers: { Authorization: `Bearer ${token}` },
+    headers: { Authorization: `Bearer ${authToken}` },
   });
 };

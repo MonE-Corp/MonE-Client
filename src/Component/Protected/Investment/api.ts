@@ -1,4 +1,3 @@
-// features/investments/api.ts
 import { Investment, CreateInvestment } from "./types";
 
 const BASE = "https://mone-awhhcwb7baccf5g0.canadacentral-01.azurewebsites.net/api/investment";
@@ -17,7 +16,10 @@ const toISODate = (value?: string) => {
 /* ---------------- API Calls ---------------- */
 
 export const fetchInvestments = async (token: string): Promise<Investment[]> => {
-  const res = await fetch(BASE, { headers: { Authorization: `Bearer ${token}` } });
+     // fallback to localStorage if token is null
+  const authToken = token || localStorage.getItem("token");
+  if (!authToken) throw new Error("No token found");
+  const res = await fetch(BASE, { headers: { Authorization: `Bearer ${authToken}` } });
   if (res.status === 401) throw new Error("UNAUTHORIZED");
 
   const data: Investment[] = await res.json();
@@ -25,9 +27,12 @@ export const fetchInvestments = async (token: string): Promise<Investment[]> => 
 };
 
 export const addInvestment = async (token: string, inv: CreateInvestment): Promise<Investment> => {
+     // fallback to localStorage if token is null
+  const authToken = token || localStorage.getItem("token");
+  if (!authToken) throw new Error("No token found");
   const res = await fetch(BASE, {
     method: "POST",
-    headers: { Authorization: `Bearer ${token}`, "Content-Type": "application/json" },
+    headers: { Authorization: `Bearer ${authToken}`, "Content-Type": "application/json" },
     body: JSON.stringify({ ...inv, invested_date: toISODate(inv.invested_date) }),
   });
   const data: Investment = await res.json();
@@ -35,9 +40,12 @@ export const addInvestment = async (token: string, inv: CreateInvestment): Promi
 };
 
 export const updateInvestment = async (token: string, id: number, data: Partial<Investment>): Promise<Investment> => {
-  const res = await fetch(`${BASE}/${id}`, {
+   // fallback to localStorage if token is null
+  const authToken = token || localStorage.getItem("token");
+  if (!authToken) throw new Error("No token found");
+    const res = await fetch(`${BASE}/${id}`, {
     method: "PUT",
-    headers: { Authorization: `Bearer ${token}`, "Content-Type": "application/json" },
+    headers: { Authorization: `Bearer ${authToken}`, "Content-Type": "application/json" },
     body: JSON.stringify({ ...data, invested_date: toISODate(data.invested_date) }),
   });
   const updated: Investment = await res.json();
@@ -45,5 +53,8 @@ export const updateInvestment = async (token: string, id: number, data: Partial<
 };
 
 export const deleteInvestment = async (token: string, id: number) => {
-  await fetch(`${BASE}/${id}`, { method: "DELETE", headers: { Authorization: `Bearer ${token}` } });
+     // fallback to localStorage if token is null
+  const authToken = token || localStorage.getItem("token");
+  if (!authToken) throw new Error("No token found");
+  await fetch(`${BASE}/${id}`, { method: "DELETE", headers: { Authorization: `Bearer ${authToken}` } });
 };

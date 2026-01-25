@@ -37,10 +37,12 @@ const MainDashboard: FC = () => {
        FETCH AVAILABLE YEARS
   ----------------------------- */
   useEffect(() => {
-    if (!token) return;
+     // fallback to localStorage if token is null
+  const authToken = token || localStorage.getItem("token");
+  if (!authToken) throw new Error("No token found");
 
     fetch("https://mone-awhhcwb7baccf5g0.canadacentral-01.azurewebsites.net/api/dashboard/years", {
-      headers: { Authorization: `Bearer ${token}` },
+      headers: { Authorization: `Bearer ${authToken}` },
     })
       .then(async (res) => {
         if (res.status === 401) {
@@ -74,9 +76,11 @@ const MainDashboard: FC = () => {
 
     let url = `https://mone-awhhcwb7baccf5g0.canadacentral-01.azurewebsites.net/api/dashboard/filter?year=${selectedYear}`;
     if (selectedMonth) url += `&month=${selectedMonth}`;
-
+     // fallback to localStorage if token is null
+  const authToken = token || localStorage.getItem("token");
+  if (!authToken) throw new Error("No token found");
     fetch(url, {
-      headers: { Authorization: `Bearer ${token}` },
+      headers: { Authorization: `Bearer ${authToken}` },
     })
       .then(async (res) => {
         if (res.status === 401) {
