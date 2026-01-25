@@ -41,11 +41,7 @@ h6 { font-size: var(--font-h6); font-family: var(--roboto); }
 p { font-size: var(--font-p); font-family: var(--workSans); }
 a { font-size: var(--font-a); font-family: var(--workSans); text-decoration: none; }
 
-/* Mobile-first styles */
-#homeContainer {
-    background-color: var(--Navy);
-    height: 100vh;
-}
+
 
 label { font-size: var(--font-label); font-weight: bold; font-family: var(--openSans); color:lightgrey; }
 input, textarea, select {

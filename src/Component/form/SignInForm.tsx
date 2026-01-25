@@ -7,7 +7,7 @@ import InputLabel from "../Shared/InputLabel";
 import Spinner from "../Shared/Spinner";
 
 const SignInForm: React.FC = () => {
-  const API_BASE_URL = "https://mone-awhhcwb7baccf5g0.canadacentral-01.azurewebsites.net" ; // Your Express backend URL
+  const API_BASE_URL ="https://mone-awhhcwb7baccf5g0.canadacentral-01.azurewebsites.net";
   const navigate = useNavigate();
   const { token, login } = useAuth();
 
@@ -22,7 +22,7 @@ const SignInForm: React.FC = () => {
   // Redirect to dashboard if already authenticated
   useEffect(() => {
     if (token) {
-      navigate("/dashboard");
+      navigate("/portal");
     }
   }, [token, navigate]);
 
@@ -89,14 +89,6 @@ const SignInForm: React.FC = () => {
         
         {/* Email & Password Form */}
         <form onSubmit={handleSubmit}>
-         {/*  <div className="mb-3">
-            <label className="form-label">Email</label>
-            <input type="email" className="form-control" placeholder="Enter your email" required />
-          </div> */}
-          {/* <div className="mb-3">
-            <label className="form-label">Password</label>
-            <input type="password" className="form-control" placeholder="Enter your password" required />
-          </div> */}
            {/* Email Input */}
            <InputLabel
             type="email"
