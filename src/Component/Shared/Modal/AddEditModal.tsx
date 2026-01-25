@@ -67,12 +67,21 @@ export function AddEditModal<T, C>({
                     ))}
                   </select>
                 ) : (
-                  <input
+                    <input
                     type={f.type ?? "text"}
                     className="form-control"
-                    value={(formData as any)[f.name] ?? ""}
+                    value={
+                      f.type === "date"
+                        ? ((formData as any)[f.name]?.split("T")[0] ?? "")
+                        : ((formData as any)[f.name] ?? "")
+                    }
                     onChange={(e) =>
-                      handleChange(f.name as keyof T, e.target.value)
+                      handleChange(
+                        f.name as keyof T,
+                        f.type === "date"
+                          ? e.target.value
+                          : e.target.value
+                      )
                     }
                     required={f.required}
                   />

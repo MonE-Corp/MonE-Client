@@ -22,6 +22,9 @@ const expenseFields: FieldConfig[] = [
       { label: "Personal", value: "Personal" },
       { label: "Other", value: "Other" },
       { label: "Credit Payment", value: "Credit Payment" },
+      { label: "Nepal", value: "Nepal" },
+      { label: "Entertainment", value: "Entertainment" },
+      { label: "Subscription", value: "Subscription" },
     ],
   },
   {
@@ -72,7 +75,7 @@ export default function ExpensePage() {
       getDate={(e) => e.date}
       getAmount={(e) => e.amount}
       columns={[
-         { label: "Date", render: (e) => new Date(e.date).toLocaleDateString(), sortable:true, sortKey: (e) => e.date  },
+         { label: "Date", render: (e) => e.date, sortable:true, sortKey: (e) => e.date  },
          { label: "Category", render: (e) => e.category, sortable:true,  sortKey: (e) => e.category },
          { label: "Amount", render: (e) => e.amount },
          { label: "Description", render: (e) => e.description },
