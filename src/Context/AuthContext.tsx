@@ -1,11 +1,12 @@
-
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { createContext, useState, useContext, ReactNode, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
 interface AuthContextType {
   token: string | null;
   login: (token: string) => void;
-  logout: () => void; 
+  logout: () => void;
+  loading: boolean; // Add loading state for hydration
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
@@ -17,39 +18,44 @@ export const useAuth = () => {
 };
 
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
-  // Lazy initializer: read token from localStorage synchronously
-  const [token, setToken] = useState<string | null>(() => localStorage.getItem("token"));
   const navigate = useNavigate();
+
+  const [token, setToken] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
 
   const login = (newToken: string) => {
     setToken(newToken);
     localStorage.setItem("token", newToken);
-    navigate("/portal"); // redirect after login
+    navigate("/portal");
   };
 
   const logout = () => {
     setToken(null);
     localStorage.removeItem("token");
-    navigate("/"); // redirect to home page
+    navigate("/");
   };
 
+  // Hydrate token from localStorage or URL query (Google OAuth)
   useEffect(() => {
     const urlParams = new URLSearchParams(window.location.search);
     const googleToken = urlParams.get("token");
 
+    const storedToken = localStorage.getItem("token");
+
     if (googleToken) {
       login(googleToken);
       window.history.replaceState({}, document.title, window.location.pathname);
+    } else if (storedToken) {
+      setToken(storedToken);
     }
 
-    setLoading(false); // done checking token
+    setLoading(false);
   }, []);
 
-  if (loading) return <div>Loading...</div>; // prevent early API calls
+  if (loading) return <div>Loading...</div>; // Prevent rendering until hydrated
 
   return (
-    <AuthContext.Provider value={{ token, login, logout }}>
+    <AuthContext.Provider value={{ token, login, logout, loading }}>
       {children}
     </AuthContext.Provider>
   );

@@ -1,4 +1,3 @@
-// App.tsx
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import ProtectedLayout from "./Component/Protected/Layout/ProtectedLayout";
 import MainDashboard from "./Component/Protected/Dashboard/MainDashboard";
@@ -11,23 +10,16 @@ import { JSX } from "react";
 
 // ----------------- ProtectedRoute -----------------
 function ProtectedRoute({ children }: { children: JSX.Element }) {
-  const { token } = useAuth();
+  const { token, loading } = useAuth();
 
-  // If user is not logged in, navigate to homepage
-  if (!token) {
-    return <Navigate to="/" replace />;
-  }
+  if (loading) return <div>Loading...</div>; // Wait for AuthProvider
 
-  try {
-    return children;
-  } catch (error) {
-    // If any error happens in protected route, navigate home
-    console.error("ProtectedRoute error:", error);
-    return <Navigate to="/" replace />;
-  }
+  if (!token) return <Navigate to="/" replace />; // Redirect if not logged in
+
+  return children;
 }
 
-// ----------------- App Component -----------------
+// ----------------- App -----------------
 function App() {
   return (
     <BrowserRouter>
@@ -51,7 +43,7 @@ function App() {
             <Route path="investment" element={<InvestmentComponent />} />
           </Route>
 
-          {/* Catch-all: redirect to home */}
+          {/* Catch-all */}
           <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
       </AuthProvider>
