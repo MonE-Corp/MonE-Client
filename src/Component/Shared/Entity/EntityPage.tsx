@@ -27,6 +27,7 @@ interface EntityPageProps<T, C> {
     sortKey?: (row: T) => string | number | Date;
   }[];
 
+  summaryRenderer?: (items: T[]) => React.ReactNode;
   modalFields: FieldConfig[];
 }
 
@@ -40,6 +41,7 @@ export function EntityPage<T, C>({
   getCategory,
   getDate,
   getAmount,
+  summaryRenderer,
   columns,
   modalFields,
 }: EntityPageProps<T, C>) {
@@ -147,6 +149,12 @@ export function EntityPage<T, C>({
       >
         + Add {title}
       </button>
+      {summaryRenderer && (
+  <div className="mb-3">
+    {summaryRenderer(filtered)}
+  </div>
+)}
+
 
       <div className="row mb-4">
         <div className="col-md-6">

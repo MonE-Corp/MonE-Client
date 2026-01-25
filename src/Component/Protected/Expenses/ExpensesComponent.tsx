@@ -63,6 +63,45 @@ const expenseFields: FieldConfig[] = [
 ];
 
 export default function ExpensePage() {
+  const renderExpenseTotals = (items: Expense[]) => {
+  const totalExpenses = items
+    .filter((i) => i.expense_type === "Expenses")
+    .reduce((sum, i) => sum + i.amount, 0);
+
+  const totalInvestments = items
+    .filter((i) => i.expense_type === "Investment")
+    .reduce((sum, i) => sum + i.amount, 0);
+
+  const totalDebt = items
+    .filter((i) => i.expense_type === "Debt Payments")
+    .reduce((sum, i) => sum + i.amount, 0);
+
+  const totalOutflow = items.reduce((sum, i) => sum + i.amount, 0);
+
+  return (
+    <div className="card shadow-sm p-3 mb-3">
+      <div className="row text-center">
+        <div className="col">
+          <strong>Expenses</strong>
+          <div>${totalExpenses.toFixed(2)}</div>
+        </div>
+        <div className="col">
+          <strong>Investments</strong>
+          <div>${totalInvestments.toFixed(2)}</div>
+        </div>
+        <div className="col">
+          <strong>Debt Payments</strong>
+          <div>${totalDebt.toFixed(2)}</div>
+        </div>
+        <div className="col">
+          <strong>Total Outflow</strong>
+          <div>${totalOutflow.toFixed(2)}</div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
   return (
     <EntityPage<Expense, CreateExpense>
       title="Expenses"
@@ -84,6 +123,7 @@ export default function ExpensePage() {
          { label: "Type", render: (e) => e.expense_type },
       ]}
       modalFields={expenseFields}
+      summaryRenderer={renderExpenseTotals}
     />
   );
 }
