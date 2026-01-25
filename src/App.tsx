@@ -21,7 +21,7 @@ function App() {
           <Route index element={<MainDashboard />} />
           <Route path="income" element={<IncomeComponent />} />
           <Route path="expenses" element={<ExpensesComponent />} />
-          <Route path="investments" element={<InvestmentComponent />} />
+          <Route path="investment" element={<InvestmentComponent />} />
           
         </Route>
 

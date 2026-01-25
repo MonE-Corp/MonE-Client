@@ -25,6 +25,7 @@ const expenseFields: FieldConfig[] = [
       { label: "Nepal", value: "Nepal" },
       { label: "Entertainment", value: "Entertainment" },
       { label: "Subscription", value: "Subscription" },
+      { label: "Investment", value: "Investment" },
     ],
   },
   {

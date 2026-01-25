@@ -71,7 +71,7 @@ const SideBar: React.FC = () => {
 
             <li className="nav-item">
               <NavLink
-                to="/portal/investments"
+                to="/portal/investment"
                 className={({ isActive }) =>
                   `nav-link d-flex align-items-center gap-2 ${isActive ? "active" : ""}`
                 }

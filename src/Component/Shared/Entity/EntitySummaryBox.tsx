@@ -1,8 +1,6 @@
-import React from "react";
-
 interface SummaryItem {
   label: string;
-  amount: number;
+  amount: number | string;
   color?: string; // Optional custom color
 }
 
@@ -29,7 +27,7 @@ export function EntitySummaryBox({ title, items }: EntitySummaryBoxProps) {
               <div className="fw-bold" style={{ fontSize: "0.9rem" }}>
                 {item.label}
               </div>
-              <div style={{ fontSize: "0.85rem" }}>${item.amount.toFixed(2)}</div>
+              <div style={{ fontSize: "0.85rem" }}>${Number(item.amount || 0).toFixed(2)}</div>
             </div>
           </div>
         ))}
