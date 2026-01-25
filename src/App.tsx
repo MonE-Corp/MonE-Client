@@ -1,3 +1,4 @@
+// App.tsx
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import ProtectedLayout from "./Component/Protected/Layout/ProtectedLayout";
 import MainDashboard from "./Component/Protected/Dashboard/MainDashboard";
@@ -5,27 +6,54 @@ import IncomeComponent from "./Component/Protected/Income/IncomeComponent";
 import ExpensesComponent from "./Component/Protected/Expenses/ExpensesComponent";
 import InvestmentComponent from "./Component/Protected/Investment/InvestmentComponent";
 import HomePage from "./Component/pages/Homepage";
-import { AuthProvider } from "./Context/AuthContext";
+import { AuthProvider, useAuth } from "./Context/AuthContext";
+import { JSX } from "react";
 
+// ----------------- ProtectedRoute -----------------
+function ProtectedRoute({ children }: { children: JSX.Element }) {
+  const { token } = useAuth();
+
+  // If user is not logged in, navigate to homepage
+  if (!token) {
+    return <Navigate to="/" replace />;
+  }
+
+  try {
+    return children;
+  } catch (error) {
+    // If any error happens in protected route, navigate home
+    console.error("ProtectedRoute error:", error);
+    return <Navigate to="/" replace />;
+  }
+}
+
+// ----------------- App Component -----------------
 function App() {
   return (
     <BrowserRouter>
-    <AuthProvider>
-      <Routes>
-        {/* Public Routes */}
-        <Route path="/" element={<HomePage />} />
+      <AuthProvider>
+        <Routes>
+          {/* Public Route */}
+          <Route path="/" element={<HomePage />} />
 
-        {/* Protected Routes */}
-        <Route path="/portal" element={<ProtectedLayout />}>
-          <Route index element={<MainDashboard />} />
-          <Route path="income" element={<IncomeComponent />} />
-          <Route path="expenses" element={<ExpensesComponent />} />
-          <Route path="investment" element={<InvestmentComponent />} />
-          
-        </Route>
+          {/* Protected Routes */}
+          <Route
+            path="/portal/*"
+            element={
+              <ProtectedRoute>
+                <ProtectedLayout />
+              </ProtectedRoute>
+            }
+          >
+            <Route index element={<MainDashboard />} />
+            <Route path="income" element={<IncomeComponent />} />
+            <Route path="expenses" element={<ExpensesComponent />} />
+            <Route path="investment" element={<InvestmentComponent />} />
+          </Route>
 
-        <Route path="*" element={<Navigate to="/" replace />} />
-      </Routes>
+          {/* Catch-all: redirect to home */}
+          <Route path="*" element={<Navigate to="/" replace />} />
+        </Routes>
       </AuthProvider>
     </BrowserRouter>
   );

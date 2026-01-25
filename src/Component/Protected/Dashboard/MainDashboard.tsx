@@ -39,7 +39,7 @@ const MainDashboard: FC = () => {
   useEffect(() => {
     if (!token) return;
 
-    fetch("http://localhost:5000/api/dashboard/years", {
+    fetch("hhttps://mone-awhhcwb7baccf5g0.canadacentral-01.azurewebsites.net/api/dashboard/years", {
       headers: { Authorization: `Bearer ${token}` },
     })
       .then(async (res) => {
