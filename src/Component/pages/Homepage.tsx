@@ -1,4 +1,3 @@
-
 import "../../assets/Styles/style.css";
 import SignInForm from "../form/SignInForm";
 function HomePage() {
