@@ -1,7 +1,7 @@
 // features/expenses/api.ts
 import { Expense, CreateExpense } from "./types";
 
-const BASE = "http://localhost:5000/api/expenses";
+const BASE = "hhttps://mone-awhhcwb7baccf5g0.canadacentral-01.azurewebsites.net/api/expenses";
 
 /* -------------------- Date Helpers -------------------- */
 

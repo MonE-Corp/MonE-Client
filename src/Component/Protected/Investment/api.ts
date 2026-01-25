@@ -1,7 +1,7 @@
 // features/investments/api.ts
 import { Investment, CreateInvestment } from "./types";
 
-const BASE = "http://localhost:5000/api/investment";
+const BASE = "https://mone-awhhcwb7baccf5g0.canadacentral-01.azurewebsites.net/api/investment";
 
 /* ---------------- Date Helpers ---------------- */
 const toDateOnly = (value?: string) => {

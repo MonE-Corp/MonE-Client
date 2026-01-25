@@ -72,7 +72,7 @@ const MainDashboard: FC = () => {
   useEffect(() => {
     if (!token || !selectedYear) return;
 
-    let url = `http://localhost:5000/api/dashboard/filter?year=${selectedYear}`;
+    let url = `https://mone-awhhcwb7baccf5g0.canadacentral-01.azurewebsites.net/api/dashboard/filter?year=${selectedYear}`;
     if (selectedMonth) url += `&month=${selectedMonth}`;
 
     fetch(url, {

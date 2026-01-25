@@ -1,6 +1,6 @@
 import { Income, CreateIncome } from "./types";
 
-const BASE = "http://localhost:5000/api/income";
+const BASE = "https://mone-awhhcwb7baccf5g0.canadacentral-01.azurewebsites.net/api/income";
 
 /* Date helpers */
 

@@ -29,7 +29,7 @@ export const PieChart = ({ data, width = 300, height = 300 }: PieChartProps) => 
 
     arcs.append("path")
       .attr("d", arc as any)
-      .attr("fill", (d, i) => color(d.data.category));
+      .attr("fill", (d) => color(d.data.category));
 
     arcs.append("text")
       .attr("transform", d => `translate(${arc.centroid(d)})`)

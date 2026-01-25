@@ -3,8 +3,6 @@ import { EntityPage } from "../../Shared/Entity/EntityPage";
 import { Investment, CreateInvestment } from "./types";
 import { FieldConfig } from "../../Shared/ui/types";
 import * as api from "./api";
-import { EntitySummaryBox } from "../../Shared/Entity/EntitySummaryBox";
-
 const investmentFields: FieldConfig[] = [
   { name: "type", label: "Type", type: "select", required: true, options: [
       { label: "Stocks", value: "Stocks" },
